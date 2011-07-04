@@ -65,16 +65,16 @@ window.flip()
 event.waitKeys()
 
 #Setup the postions list. Note, that they output file will not produce the correct staring order if this list is not in order. 
-positions = [ [-615,340], [-410,340], [-205,340], [0,340]]
+positions = [ [-615,340], [-410,340], [-205,340], [0,340], [205,340], [410,340], [615,340],[-615,135], [-410,135], [-205,135], [0,135], [205,135], [410,135], [615,135] ]
 
 #Get random order
 random_order = random.sample(positions,len(positions))
 
 #Create object dictionary for either maze: Key is object name (used for getting image filename). First value will be the start coordinates, second value will be the presentation order.
 if ( info['Maze']=='A' or info['Maze']=='a' ):
-    object_dictionary = { 'Bench':[],'Bookcase':[],'Coat_Rack':[],'Door':[] }
+    object_dictionary = { 'Bench':[],'Bookcase':[],'Coat_Rack':[],'Door':[],'Lamp':[],'Long_Table':[],'Mirror':[],'Potted_Plant':[],'Stool':[],'Table':[],'Wooden_Chest':[],'Cushion_Bench':[],'Rug':[],'White_Potted_Plant':[] }
 else:
-    object_dictionary = { 'Bench':[],'Bookcase':[],'Coat_Rack':[],'Door':[] }
+    object_dictionary = { 'Computer_Desk':[],'Dining_Chair':[],'Entertainment_Center':[],'File_Cabinet':[],'Lamp_B':[],'Long_Table_B':[],'Plant':[],'Purple_Chair':[],'Rug_B':[],'Sink':[],'Trash_Can':[],'Umbrella_Stand':[],'Window':[],'Fireplace':[] }
 
 #Create object list
 objects = []
@@ -96,7 +96,7 @@ for object,rand in zip(object_dictionary.keys(),random_order):
 border = visual.PatchStim(window,size=210,color='black')
 
 #Setup box list: First value is the box name (used for getting image), and the second is the box coordinates
-box_list = [ ('box_one',[-615,-135]), ('box_two',[-410,-135]), ('box_three',[-205,-135]), ('box_four',[0,-135]) ]
+box_list = [ ('box_one',[-615,-135]), ('box_two',[-410,-135]), ('box_three',[-205,-135]), ('box_four',[0,-135]), ('box_five',[205,-135]) , ('box_six',[410,-135]) , ('box_seven',[615,-135]) , ('box_eight',[-615,-340]) , ('box_nine',[-410,-340]) , ('box_ten',[-205,-340]) , ('box_eleven',[0,-340]) , ('box_twelve',[205,-340]) , ('box_thirteen',[410,-340]) , ('box_fourteen',[615,-340])  ]
 
 #Setup lists for the boxes and for their boundries
 boxes = [] 
