@@ -20,23 +20,23 @@ mouse = event.Mouse(visible=True, win=window)
 #Setup dialog box
 info = {'Subject':'', 'Maze':'A or B', 'Experimenter':''}
 infoDlg = gui.DlgFromDict(dictionary=info, title='Temporal Order', 
-                          order=['Subject','Experimenter','Maze'])
+                                           order=['Subject','Experimenter','Maze'])
 
 #While keep looping until user selects A/a or B/b as the maze type
 while True:   
     if infoDlg.OK:   
         if (info['Maze'] == 'A' or info['Maze'] == 'a' or info['Maze'] == 'B' or 
-            	info['Maze'] == 'b'):                
-       		
-       		#Use subject name as the output file
-       		output_file = info['Subject'] + '.txt'     
+            info['Maze'] == 'b'):                
+            
+            #Use subject name as the output file
+            output_file = info['Subject'] + '.txt'     
             
             #If data file already exists, append. If not, create a new file 
-            if path.exists('/Users/Tyler/Desktop/' + output_file) is True:
-                output = open('/Users/Tyler/Desktop/' + output_file, 'a')
+            if path.exists('/Users/denisehead/Desktop/' + output_file) is True:
+                output = open('/Users/denisehead/Desktop/' + output_file, 'a')
                 output.write('\n')
             else:
-                output = open('/Users/Tyler/Desktop/' + output_file, 'w')
+                output = open('/Users/denisehead/Desktop/' + output_file, 'w')
                 output.write('Subject: %s\n\n' %(info['Subject']))                    
             
             #Write data
@@ -44,37 +44,38 @@ while True:
             start_time = time.strftime("%H:%M:%S", time.localtime())            
             output.write('Date: %s\n' %(date))
             output.write('Maze: %s\n' %(info['Maze']))
-            output.write('Experimentor: %s\n' %(info['Experimenter']))
+            output.write('Experimenter: %s\n' %(info['Experimenter']))
             output.write('Start Time: %s\n' %(start_time))
             
             break
         else:
-            infoDlg = gui.DlgFromDict(dictionary=info, title='Temporal Order')    
+            infoDlg = gui.DlgFromDict(dictionary=info, title='Temporal Order', 
+                                                       order=['Subject','Experimenter','Maze'])    
     else:
         core.quit()
 
 #Display instructions and wait for key press to continue.
-intro = visual.TextStim(window,text='Welcome to the awesome temporal order test.' +  
-                        'Your task is to place the objects in the order in which you saw them. ok?')
+intro = visual.TextStim(window,text='Please place the objects in the order in which you encountered them in the maze.',
+                                     wrapWidth=1000)
 intro.draw()
 window.flip()
-event.waitKeys()
+event.waitKeys(keyList=['m'])
 
 #The positions list must be in left/right order for the data file order to be correct
 positions = [[-615,340], [-410,340], [-205,340], [0,340], [205,340], [410,340], [615,340],
-             [-615,135], [-410,135], [-205,135], [0,135], [205,135], [410,135], [615,135]]
+                   [-615,135], [-410,135], [-205,135], [0,135], [205,135], [410,135], [615,135]]
 random_order = random.sample(positions, len(positions))
 
 #Object_dictionary -> Key:Object name + image filename root.
 if ( info['Maze'] == 'A' or info['Maze'] == 'a' ):
     object_dictionary = {'Bench':[], 'Bookcase':[], 'Coat_Rack':[], 'Door':[], 'Lamp':[],
-                         'Long_Table':[], 'Mirror':[], 'Potted_Plant':[], 'Stool':[], 'Table':[],
-                         'Wooden_Chest':[], 'Cushion_Bench':[], 'Rug':[], 'White_Potted_Plant':[]}
+                                    'Long_Table':[], 'Mirror':[], 'Potted_Plant':[], 'Stool':[], 'Table':[],
+                                    'Wooden_Chest':[], 'Cushion_Bench':[], 'Rug':[], 'White_Potted_Plant':[]}
 else:
     object_dictionary = {'Computer_Desk':[], 'Dining_Chair':[], 'Entertainment_Center':[],
-                         'File_Cabinet':[], 'Lamp_B':[], 'Long_Table_B':[], 'Plant':[], 
-                         'Purple_Chair':[], 'Rug_B':[], 'Sink':[], 'Trash_Can':[],
-                         'Umbrella_Stand':[], 'Window':[], 'Fireplace':[]}
+                                    'File_Cabinet':[], 'Lamp_B':[], 'Long_Table_B':[], 'Plant':[], 
+                                    'Purple_Chair':[], 'Rug_B':[], 'Sink':[], 'Trash_Can':[],
+                                    'Umbrella_Stand':[], 'Window':[], 'Fireplace':[]}
 
 #Place each object in a random location
 objects = []
@@ -82,9 +83,9 @@ for object, rand in zip(object_dictionary.keys(), random_order):
     
     #First value is coordinates, second is the order
     object_dictionary[str(object)] = [rand,positions.index(rand)]
-    loop_object = visual.PatchStim(window,tex='/Users/Tyler/github/temp_order/images/' + 
-                                   str(object) + '_Neutral.jpg', size=200, depth=1,
-                                   name=str(object), pos=rand)
+    loop_object = visual.PatchStim(window,tex='/Users/denisehead/Documents/temp_order/images/' + 
+                                                       str(object) + '_Neutral.jpg', size=200, depth=1,
+                                                       name=str(object), pos=rand)
     objects.append(loop_object)
     loop_object.setAutoDraw(True)
 
@@ -93,17 +94,17 @@ border = visual.PatchStim(window, size=210, color='black')
 
 #Box_list -> Key: Object name + image filename root. Value is coordinates
 box_list = [('box_one', [-615,-135]), ('box_two', [-410,-135]), ('box_three', [-205,-135]), 
-            ('box_four', [0,-135]), ('box_five', [205,-135]), ('box_six', [410,-135]), 
-            ('box_seven', [615,-135]), ('box_eight', [-615,-340]), ('box_nine', [-410,-340]),
-            ('box_ten', [-205,-340]), ('box_eleven', [0,-340]), ('box_twelve', [205,-340]),
-            ('box_thirteen', [410,-340]), ('box_fourteen', [615,-340])]
+                 ('box_four', [0,-135]), ('box_five', [205,-135]), ('box_six', [410,-135]), 
+                 ('box_seven', [615,-135]), ('box_eight', [-615,-340]), ('box_nine', [-410,-340]),
+                 ('box_ten', [-205,-340]), ('box_eleven', [0,-340]), ('box_twelve', [205,-340]),
+                 ('box_thirteen', [410,-340]), ('box_fourteen', [615,-340])]
 
 #Place each box in the correct location. Also get the collision boundries.
 boxes = [] 
 box_boundries = []
 for box in box_list:
-    loop_box = visual.PatchStim(window, tex='/Users/Tyler/github/temp_order/images/' + 
-                                str(box[0]) + '.jpg', size=200 ,pos=box[1])   
+    loop_box = visual.PatchStim(window, tex='/Users/denisehead/Documents/temp_order/images/' + 
+                                                   str(box[0]) + '.jpg', size=200 ,pos=box[1])   
     boxes.append(loop_box)
     box_boundries.append(get_boundries(loop_box))
     loop_box.setAutoDraw(True)
@@ -208,7 +209,7 @@ while True:
         #Show user some text, asking them if they really want to quit. Also show number of 
         #objects that have not been places
         confirm = visual.TextStim(window, text='There are ' + str(len(in_orig)) + 
-                                  ' left in their original places. Press f to quit or b to go back')
+                                                 ' left in their original places. Press \'f\' to quit or \'b\' to go back.',wrapWidth=1000)
         confirm.draw()
         window.flip()
        
@@ -229,7 +230,7 @@ while True:
                     for obj in objects:
                         
                         #Check to see if object and box have the same postion. 
-                        if ( obj.pos[0] == box.pos[0] and obj.pos[1] == box.pos[1] ):
+                        if (obj.pos[0] == box.pos[0] and obj.pos[1] == box.pos[1]):
                             output_order.append(str(obj.name))
                             missing = 0
                             
@@ -248,7 +249,7 @@ while True:
                 #Print the key's of the sorted list
                 output.write('Random Order: ' + 
                              str([ sorted_objects[i][0] for i in range(len(sorted_objects)) ]) + 
-                             '\n')
+                                   '\n')
                 
                 output.write('Subject Order: ' + str(output_order) + '\n')
                 
